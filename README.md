@@ -37,6 +37,18 @@ Bonsai is a data-driven tool designed to model the **impact of afforestation** o
 This prototype is designed for **researchers, environmental organizations, and students** to explore species-wise CO₂ sequestration and plan sustainable afforestation strategies.
 
 ---
+## Prototype Screenshots
+
+### First Page (Welcome)
+![First Page](images/Firstpage.png)
+
+### Tree Selection Page
+![Tree Selection](images/Secondhomepage.png)
+
+### Dashboard / Website Page (Work in Progress)
+![Dashboard](images/website G-1.png)
+
+---
 
 ## License
 MIT License
