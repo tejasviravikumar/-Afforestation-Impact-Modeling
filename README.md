@@ -46,7 +46,7 @@ This prototype is designed for **researchers, environmental organizations, and s
 ![Tree Selection](images/Secondhomepage.png)
 
 ### Dashboard / Website Page (Work in Progress)
-![Dashboard](images/website G-1.png)
+![Dashboard](images/website_G-1.png)
 
 ---
 
