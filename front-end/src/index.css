@@ -1,0 +1,977 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --main-color: #56a85a;
+  --accent-color: #c8e6c9;
+  --bg-gradient: linear-gradient(135deg, #a8e6a3 0%, #7fbc82 25%, #56a85a 50%, #3d7c47 75%, #2d5a34 100%);
+  --text-color: rgba(255, 255, 255, 0.9);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  overflow-x: hidden;
+  background: var(--bg-gradient);
+  min-height: 100vh;
+}
+
+.firstpage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+  padding: 0 60px;
+  background: radial-gradient(circle at 20% 80%, rgba(139, 195, 74, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(76, 175, 80, 0.2) 0%, transparent 50%);
+}
+
+.content-section {
+  z-index: 2;
+}
+
+.text-content {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 4rem;
+  color: #fff;
+  font-weight: 700;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  line-height: 1;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  font-weight: 300;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.text {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+}
+
+.text b {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+button {
+  padding: 16px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 50px;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.6);
+}
+
+.image-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.Bonsai {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.Bonsai:hover {
+  transform: scale(1.05);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+}
+
+.stats-overlay {
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+  display: flex;
+  gap: 40px;
+  color: var(--text-color);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .firstpage {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .image-section {
+    order: 1;
+  }
+
+  .content-section {
+    order: 2;
+    text-align: center;
+  }
+
+  .Bonsai {
+    width: 300px;
+    height: 300px;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .Bonsai {
+    width: 250px;
+    height: 250px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .text {
+    font-size: 1rem;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stats-overlay {
+    position: static;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 20px;
+  }
+}
+
+/* TreePlantingDashboard.css */
+
+.dashboard-container {
+  min-height: 100vh;
+  background-color: #0a0a0a;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #fff;
+  display: flex;
+}
+
+/* Left Panel - Selected Trees */
+.left-panel {
+  width: 350px;
+  background-color: #1a1a2e;
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.left-panel-header {
+  padding: 20px;
+  border-bottom: 1px solid #333;
+  background-color: #16213e;
+}
+
+.left-panel-title {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  color: #4CAF50;
+}
+
+.selected-trees-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.no-trees-message {
+  padding: 40px 20px;
+  text-align: center;
+  color: #888;
+}
+
+.no-trees-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.selected-tree-item {
+  padding: 16px 20px;
+  border-bottom: 1px solid #333;
+}
+
+.selected-tree-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.selected-tree-info {
+  flex: 1;
+}
+
+.selected-tree-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.selected-tree-quantity {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2a2a3e;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.quantity-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-btn-minus {
+  background-color: #ff4444;
+}
+
+.quantity-btn-plus {
+  background-color: #4CAF50;
+}
+
+.quantity-input {
+  width: 80px;
+  padding: 6px;
+  text-align: center;
+  background-color: #1a1a2e;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.quick-add-buttons {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.quick-add-btn {
+  flex: 1;
+  padding: 4px;
+  background-color: #444;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.generate-dashboard-section {
+  padding: 20px;
+  border-top: 1px solid #333;
+  background-color: #16213e;
+}
+
+.generate-dashboard-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Right Panel - Tree Selection */
+.right-panel {
+  margin-left: 350px;
+  flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.right-panel-header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 24px;
+  border-bottom: 1px solid #333;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.main-title {
+  margin: 0 0 20px 0;
+  font-size: 28px;
+  font-weight: bold;
+  color: #4CAF50;
+  text-align: center;
+}
+
+.search-filters {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+  min-width: 250px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  background-color: #2a2a3e;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.category-select {
+  padding: 12px 16px;
+  background-color: #2a2a3e;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tree-cards-container {
+  padding: 24px;
+}
+
+.tree-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.tree-card {
+  background-color: #1a1a2e;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #333;
+  transition: all 0.2s ease;
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.tree-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.15);
+}
+
+.tree-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.tree-card-info {
+  flex: 1;
+}
+
+.tree-name-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.tree-emoji {
+  font-size: 24px;
+}
+
+.tree-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.tree-category-badge {
+  background-color: #2a2a3e;
+  color: #4CAF50;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.tree-description {
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.tree-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tree-stat-item {
+  background-color: #2a2a3e;
+  padding: 8px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.tree-stat-label {
+  font-size: 10px;
+  color: #888;
+  margin-bottom: 2px;
+}
+
+.tree-stat-value {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.tree-stat-category {
+  color: #4CAF50;
+}
+
+.tree-stat-survival {
+  color: #2196F3;
+}
+
+.add-tree-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.add-tree-btn:hover {
+  background-color: #45a049;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation delays for staggered effect */
+.tree-card:nth-child(1) { animation-delay: 0s; }
+.tree-card:nth-child(2) { animation-delay: 0.05s; }
+.tree-card:nth-child(3) { animation-delay: 0.1s; }
+.tree-card:nth-child(4) { animation-delay: 0.15s; }
+.tree-card:nth-child(5) { animation-delay: 0.2s; }
+.tree-card:nth-child(6) { animation-delay: 0.25s; }
+.tree-card:nth-child(7) { animation-delay: 0.3s; }
+.tree-card:nth-child(8) { animation-delay: 0.35s; }
+.tree-card:nth-child(9) { animation-delay: 0.4s; }
+.tree-card:nth-child(10) { animation-delay: 0.45s; }
+
+/* TreePlantingDashboard.css */
+
+.dashboard-container {
+  min-height: 100vh;
+  background-color: #0a0a0a;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #fff;
+  display: flex;
+}
+
+/* Left Panel - Selected Trees */
+.left-panel {
+  width: 350px;
+  background-color: #1a1a2e;
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.left-panel-header {
+  padding: 20px;
+  border-bottom: 1px solid #333;
+  background-color: #16213e;
+}
+
+.left-panel-title {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  color: #4CAF50;
+}
+
+.selected-trees-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.no-trees-message {
+  padding: 40px 20px;
+  text-align: center;
+  color: #888;
+}
+
+.no-trees-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.selected-tree-item {
+  padding: 16px 20px;
+  border-bottom: 1px solid #333;
+}
+
+.selected-tree-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.selected-tree-info {
+  flex: 1;
+}
+
+.selected-tree-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.selected-tree-quantity {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2a2a3e;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.quantity-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-btn-minus {
+  background-color: #ff4444;
+}
+
+.quantity-btn-plus {
+  background-color: #4CAF50;
+}
+
+.quantity-input {
+  width: 80px;
+  padding: 6px;
+  text-align: center;
+  background-color: #1a1a2e;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.quick-add-buttons {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.quick-add-btn {
+  flex: 1;
+  padding: 4px;
+  background-color: #444;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.generate-dashboard-section {
+  padding: 20px;
+  border-top: 1px solid #333;
+  background-color: #16213e;
+}
+
+.generate-dashboard-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.generate-dashboard-btn:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+.dashboard-result {
+  margin-top: 16px;
+  padding: 16px;
+  background-color: #2a2a3e;
+  border-radius: 8px;
+  border: 1px solid #4CAF50;
+}
+
+.success-message {
+  color: #4CAF50;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+.result-stats {
+  color: #ccc;
+  font-size: 12px;
+  text-align: center;
+  margin: 0 0 12px 0;
+}
+
+.chart-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chart-link {
+  display: block;
+  padding: 8px 12px;
+  background-color: #1a1a2e;
+  color: #4CAF50;
+  text-decoration: none;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.chart-link:hover {
+  background-color: #333;
+  text-decoration: none;
+}
+
+/* Right Panel - Tree Selection */
+.right-panel {
+  margin-left: 350px;
+  flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.right-panel-header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 24px;
+  border-bottom: 1px solid #333;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.main-title {
+  margin: 0 0 20px 0;
+  font-size: 28px;
+  font-weight: bold;
+  color: #4CAF50;
+  text-align: center;
+}
+
+.search-filters {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+  min-width: 250px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  background-color: #2a2a3e;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.category-select {
+  padding: 12px 16px;
+  background-color: #2a2a3e;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tree-cards-container {
+  padding: 24px;
+}
+
+.tree-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.tree-card {
+  background-color: #1a1a2e;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #333;
+  transition: all 0.2s ease;
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.tree-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.15);
+}
+
+.tree-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.tree-card-info {
+  flex: 1;
+}
+
+.tree-name-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.tree-emoji {
+  font-size: 24px;
+}
+
+.tree-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.tree-category-badge {
+  background-color: #2a2a3e;
+  color: #4CAF50;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.tree-description {
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.tree-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tree-stat-item {
+  background-color: #2a2a3e;
+  padding: 8px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.tree-stat-label {
+  font-size: 10px;
+  color: #888;
+  margin-bottom: 2px;
+}
+
+.tree-stat-value {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.tree-stat-category {
+  color: #4CAF50;
+}
+
+.tree-stat-survival {
+  color: #2196F3;
+}
+
+.add-tree-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.add-tree-btn:hover {
+  background-color: #45a049;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation delays for staggered effect */
+.tree-card:nth-child(1) { animation-delay: 0s; }
+.tree-card:nth-child(2) { animation-delay: 0.05s; }
+.tree-card:nth-child(3) { animation-delay: 0.1s; }
+.tree-card:nth-child(4) { animation-delay: 0.15s; }
+.tree-card:nth-child(5) { animation-delay: 0.2s; }
+.tree-card:nth-child(6) { animation-delay: 0.25s; }
+.tree-card:nth-child(7) { animation-delay: 0.3s; }
+.tree-card:nth-child(8) { animation-delay: 0.35s; }
+.tree-card:nth-child(9) { animation-delay: 0.4s; }
+.tree-card:nth-child(10) { animation-delay: 0.45s; }
