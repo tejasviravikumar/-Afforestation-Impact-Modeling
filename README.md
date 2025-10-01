@@ -119,9 +119,22 @@ streamlit run app.py
 
 ---
 
-## **Screenshots / Demo**
+## **Screenshots **
+### First Page
+![First Page](images/Firstpage.png)
 
-*(Add images of your Streamlit dashboard here to show the interface and charts)*
+### Graph 1
+![Graph 1](images/graph1.png)
+
+### Donut Chart
+![Donut Chart](images/donut.png)
+
+### Graph 2
+![Graph 2](images/graph2.png)
+
+### CSV Export
+![CSV Export](images/CSVexport.png)
+
 
 ---
 
