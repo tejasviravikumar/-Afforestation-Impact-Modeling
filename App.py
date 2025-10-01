@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import json
 
-# Page configuration
+
 st.set_page_config(
     page_title="🌱 Tree Planting CO₂ Dashboard",
     page_icon="🌱",
@@ -14,7 +14,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Sample data based on your chart
+
 TREE_DATA = {
     "Bargad (Banyan)": {
       "Avg_Biomass_kg_per_year": 90,
@@ -291,42 +291,40 @@ TREE_DATA = {
 }
 
 def main():
-    # Title and description
+    
     st.title("🌱 Tree Planting CO₂ Impact Dashboard")
     st.markdown("**Visualize the carbon sequestration potential of different tree species over 20 years**")
     
-    # Sidebar for controls
+    
     st.sidebar.header("🌳 Tree Selection & Planning")
     
-    # Select All / Deselect All buttons
+   
     col1, col2 = st.sidebar.columns(2)
     select_all = col1.button("Select All")
     deselect_all = col2.button("Deselect All")
     
-    # Initialize session state for species selection
+   
     if 'selected_species' not in st.session_state:
-        st.session_state.selected_species = list(TREE_DATA.keys())[:3]  # Default selection
+        st.session_state.selected_species = list(TREE_DATA.keys())[:3]  
     
     if select_all:
         st.session_state.selected_species = list(TREE_DATA.keys())
     if deselect_all:
         st.session_state.selected_species = []
     
-    # Species selection with number of trees
+    
     st.sidebar.subheader("Select Species & Quantity")
     selected_species = {}
     
     for species in TREE_DATA.keys():
         col1, col2 = st.sidebar.columns([3, 1])
-        
-        # Checkbox for species selection
+
         is_selected = col1.checkbox(
             species, 
             value=species in st.session_state.selected_species,
             key=f"check_{species}"
         )
         
-        # Number input for quantity
         if is_selected:
             num_trees = col2.number_input(
                 "", 
@@ -338,14 +336,12 @@ def main():
             )
             selected_species[species] = num_trees
     
-    # Update session state
     st.session_state.selected_species = list(selected_species.keys())
     
     if not selected_species:
         st.warning("Please select at least one tree species to see the analysis.")
         return
     
-    # Calculate metrics
     total_trees = sum(selected_species.values())
     total_survivors = sum(
         num_trees * TREE_DATA[species]["Survival_Rate"] 
@@ -356,7 +352,6 @@ def main():
         for species, num_trees in selected_species.items()
     )
     
-    # Display key metrics
     st.header("📊 Key Metrics")
     col1, col2, col3, col4 = st.columns(4)
     
@@ -372,13 +367,11 @@ def main():
     with col4:
         st.metric("♻️ CO₂ per Tree (avg)", f"{total_co2_20yrs/total_trees:,.0f} kg")
     
-    # Create visualizations
     st.header("📈 CO₂ Sequestration Analysis")
     
-    # 1. Line chart - CO₂ over 20 years
+
     st.subheader("CO₂ Sequestration Over 20 Years (Per Species)")
-    
-    # Prepare data for line chart
+  
     years = list(range(1, 21))
     line_fig = go.Figure()
     
@@ -399,7 +392,7 @@ def main():
             line=dict(
                 color=colors[i % len(colors)],
                 width=3,
-                shape='spline',  # Smooth curves
+                shape='spline',  
                 smoothing=0.3
             ),
             hovertemplate=f"<b>{species}</b><br>" +
@@ -419,7 +412,6 @@ def main():
     
     st.plotly_chart(line_fig, use_container_width=True)
     
-    # 2. Area chart - Total CO₂ by species
     col1, col2 = st.columns(2)
     
     with col1:
@@ -431,7 +423,6 @@ def main():
             total_co2 = sum(TREE_DATA[species]["CO2_Sequestration_20yrs"]) * num_trees * survival_rate
             species_totals[species] = total_co2
         
-        # Create bar chart
         bar_fig = px.bar(
             x=list(species_totals.keys()),
             y=list(species_totals.values()),
@@ -454,7 +445,6 @@ def main():
     with col2:
         st.subheader("CO₂ Contribution by Species")
         
-        # Donut chart
         pie_fig = px.pie(
             values=list(species_totals.values()),
             names=list(species_totals.keys()),
@@ -476,10 +466,8 @@ def main():
         
         st.plotly_chart(pie_fig, use_container_width=True)
     
-    # 3. Cumulative CO₂ area chart
     st.subheader("Cumulative CO₂ Sequestration Over Time")
-    
-    # Calculate cumulative data
+  
     cumulative_fig = go.Figure()
     
     for i, (species, num_trees) in enumerate(selected_species.items()):
@@ -514,10 +502,8 @@ def main():
     
     st.plotly_chart(cumulative_fig, use_container_width=True)
     
-    # Data table
     st.header("📋 Species Details")
     
-    # Create detailed dataframe
     details_data = []
     for species, num_trees in selected_species.items():
         data = TREE_DATA[species]
@@ -536,10 +522,8 @@ def main():
     df_details = pd.DataFrame(details_data)
     st.dataframe(df_details, use_container_width=True, hide_index=True)
     
-    # Export functionality
     st.header("📥 Export Data")
     
-    # Convert to CSV
     csv = df_details.to_csv(index=False)
     st.download_button(
         label="Download Species Details (CSV)",
@@ -548,7 +532,6 @@ def main():
         mime="text/csv"
     )
     
-    # Footer
     st.markdown("---")
     st.markdown("**🌱 Tree Planting CO₂ Dashboard** - Helping plan sustainable reforestation efforts")
 
