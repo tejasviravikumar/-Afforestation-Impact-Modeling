@@ -119,7 +119,7 @@ streamlit run app.py
 
 ---
 
-## **Screenshots **
+## **Screenshots**
 ### First Page
 ![First Page](images/Firstpage.png)
 
